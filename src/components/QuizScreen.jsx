@@ -30,15 +30,15 @@ export default function QuizScreen({ questions, onComplete }) {
 
   return (
     <div>
-      <h2 style={{ fontFamily: 'var(--font-cyber)', color: 'var(--color-primary)' }}>
+      <h2 style={{ fontFamily: 'var(--font-cyber)', color: 'var(--color-primary)', fontWeight: 'bold' }}>
         STAGE {currentIndex + 1} / {questions.length}
       </h2>
       
       <div className="cyber-box">
         {/* 使用科技風 Bottts API 產生關主圖片 */}
         <img 
-          src={`https://api.dicebear.com/7.x/bottts/svg?seed=${bossSeed}&size=150`} 
-          alt="Boss" 
+          src={`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${bossSeed}&size=150&backgroundColor=f8fafc`} 
+          alt="AI Assistant" 
           className="boss-image"
         />
         

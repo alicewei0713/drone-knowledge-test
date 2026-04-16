@@ -13,9 +13,10 @@ export default function LoginScreen({ onStart }) {
 
   return (
     <div>
-      <h1 className="cyber-title">無人機知識<br/>闖關問題</h1>
+      <h1 className="cyber-title">無人機知識闖關測驗</h1>
       <div className="cyber-box">
-        <p style={{ fontFamily: 'var(--font-text)', fontWeight: 'bold', fontSize: '28px' }}>請填寫登入ID</p>
+        <div style={{ marginBottom: '15px' }}><span className="ai-hint">⚡ AI 智能評測系統</span></div>
+        <p style={{ fontFamily: 'var(--font-text)', fontWeight: '800', fontSize: '28px', margin: '10px 0' }}>請填寫登入ID</p>
         <input 
           type="text" 
           className="cyber-input" 
