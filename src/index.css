@@ -213,3 +213,28 @@ body {
   background-color: var(--color-primary);
   border-radius: 4px;
 }
+
+/* --- Added Web Effects for Pass/Fail --- */
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-5px, 2px) }
+  40% { transform: translate(-5px, -2px) }
+  60% { transform: translate(5px, 2px) }
+  80% { transform: translate(5px, -2px) }
+  100% { transform: translate(0) }
+}
+.fail-effect {
+  border-color: var(--color-danger) !important;
+  box-shadow: 0 0 20px var(--color-danger), inset 0 0 20px var(--color-danger) !important;
+  animation: glitch 0.4s ease-in-out 2;
+}
+
+@keyframes success-pulse {
+  0% { box-shadow: 0 0 10px var(--color-success), inset 0 0 10px var(--color-success); border-color: var(--color-success); }
+  50% { box-shadow: 0 0 40px var(--color-success), inset 0 0 40px var(--color-success); border-color: var(--color-success); }
+  100% { box-shadow: 0 0 10px var(--color-success), inset 0 0 10px var(--color-success); border-color: var(--color-success); }
+}
+.success-effect {
+  border-color: var(--color-success) !important;
+  animation: success-pulse 1.5s infinite;
+}

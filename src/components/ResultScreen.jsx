@@ -4,12 +4,12 @@ export default function ResultScreen({ result, onRestart }) {
   return (
     <div>
       <h1 className="cyber-title">STAGE CLEAR?</h1>
-      <div className="cyber-box">
+      <div className={`cyber-box ${result.isPassed ? 'success-effect' : 'fail-effect'}`}>
         <h2 className={result.isPassed ? "success-text" : "fail-text"}>
           {result.isPassed ? "MISSION ACCOMPLISHED!" : "GAME OVER"}
         </h2>
         
-        <div className="score-text">
+        <div className="score-text" style={{ color: result.isPassed ? 'var(--color-success)' : 'var(--color-danger)' }}>
           <p>SCORE: {result.score}</p>
         </div>
 
