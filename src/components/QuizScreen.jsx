@@ -60,6 +60,21 @@ export default function QuizScreen({ questions, onComplete }) {
             )
           ))}
         </div>
+
+        {currentIndex > 0 && (
+          <div style={{ marginTop: '20px', textAlign: 'center' }}>
+            <button 
+              className="cyber-btn" 
+              onClick={() => {
+                setAnswers(answers.slice(0, -1));
+                setCurrentIndex(currentIndex - 1);
+              }}
+              style={{ fontSize: '0.9rem', padding: '10px 20px', borderColor: '#aaa', color: '#aaa' }}
+            >
+              ⬅ 上一題 (Back)
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
