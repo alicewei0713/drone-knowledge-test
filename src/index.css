@@ -89,7 +89,7 @@ body {
   color: var(--color-primary);
   font-family: var(--font-cyber);
   font-size: 1.2rem;
-  border: 1px solid var(--color-secondary);
+  border: 1px solid #ffffff;
   border-radius: 4px;
   padding: 14px;
   width: 90%;
