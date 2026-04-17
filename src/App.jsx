@@ -170,7 +170,8 @@ export default function App() {
 
   return (
     <div className="game-container">
-      <audio ref={audioRef} src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" loop />
+      {/* 移除了電子背景音樂，如果未來想加入柔和的音樂，可以在 src 放入 mp3 網址 */}
+      <audio ref={audioRef} src="" loop />
       <button 
         onClick={toggleMute} 
         style={{ position: 'fixed', top: 20, right: 20, background: 'rgba(255,255,255,0.9)', border: '1px solid #cbd5e1', borderRadius: '50%', width: 45, height: 45, cursor: 'pointer', fontSize: '1.2rem', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', zIndex: 100 }}
