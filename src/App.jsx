@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import LoginScreen from './components/LoginScreen';
 import QuizScreen from './components/QuizScreen';
 import ResultScreen from './components/ResultScreen';
+import { initAudio, playClick, playSuccess, playFail } from './utils/sound';
 
 const MOCK_DB = [
   { originalIndex: 1, question: '在無人機製造中，為了減輕機身重量並維持高強度，最常使用下列哪種複合材料？', options: { A: '玻璃纖維', B: '碳纖維', C: '鋁合金', D: '鈦合金' }, answer: 'B' },
@@ -23,12 +24,27 @@ export default function App() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
+  
+  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef(null);
+
+  const toggleMute = () => {
+    initAudio();
+    if (audioRef.current) {
+      if (isMuted) audioRef.current.play().catch(e => console.log(e));
+      else audioRef.current.pause();
+    }
+    setIsMuted(!isMuted);
+    playClick();
+  };
 
   const scriptUrl = import.meta.env.VITE_GOOGLE_APP_SCRIPT_URL;
   const questionCount = parseInt(import.meta.env.VITE_QUESTION_COUNT || '5');
   const passThreshold = parseInt(import.meta.env.VITE_PASS_THRESHOLD || '3');
 
   const startGame = async (id) => {
+    initAudio();
+    playClick();
     const isMock = !scriptUrl || scriptUrl.includes('請替換成您的_GAS_發佈URL');
     setPlayerId(id);
     setGameState('LOADING');
@@ -89,9 +105,12 @@ export default function App() {
         // 滿分 100 分，按比例計算
         const mockScore = (correctCount / questionCount) * 100;
         
+        const isPassed = correctCount >= passThreshold;
+        if (isPassed) playSuccess(); else playFail();
+
         setResult({
           score: Math.round(mockScore),
-          isPassed: correctCount >= passThreshold,
+          isPassed: isPassed,
           details: reviewDetails,
           questions: questions
         });
@@ -115,6 +134,7 @@ export default function App() {
       const json = await res.json();
       
       if (json.success) {
+        if (json.isPassed) playSuccess(); else playFail();
         setResult({
           score: json.score,
           isPassed: json.isPassed,
@@ -133,6 +153,7 @@ export default function App() {
   };
 
   const resetGame = () => {
+    playClick();
     setGameState('LOGIN');
     setPlayerId('');
     setQuestions([]);
@@ -142,6 +163,15 @@ export default function App() {
 
   return (
     <div className="game-container">
+      <audio ref={audioRef} src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" loop />
+      <button 
+        onClick={toggleMute} 
+        style={{ position: 'fixed', top: 20, right: 20, background: 'rgba(255,255,255,0.9)', border: '1px solid #cbd5e1', borderRadius: '50%', width: 45, height: 45, cursor: 'pointer', fontSize: '1.2rem', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', zIndex: 100 }}
+        title="Toggle Music"
+      >
+        {isMuted ? '🔇' : '🎵'}
+      </button>
+
       {gameState === 'LOGIN' && <LoginScreen onStart={startGame} />}
       {gameState === 'LOADING' && <div className="blinking-text">STAGE LOADING...</div>}
       {gameState === 'PLAYING' && (
