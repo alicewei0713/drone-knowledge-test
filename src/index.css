@@ -34,7 +34,7 @@ body {
 
 .game-container {
   width: 100%;
-  max-width: 650px;
+  max-width: 980px; /* 加大 50% */
   padding: 20px;
   text-align: center;
 }
@@ -55,7 +55,7 @@ body {
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
-  padding: 40px 30px;
+  padding: 50px 40px; /* 框格內留白等比放大 */
   margin: 16px 0;
   backdrop-filter: blur(16px);
   border-radius: 16px;
