@@ -44,10 +44,9 @@ export default function QuizScreen({ questions, onComplete }) {
   const handleSelect = (optionKey) => {
     if (optionKey !== 'TIMEOUT') playClick();
 
-    const newAnswers = [
-      ...answers,
-      { originalIndex: currentQ.originalIndex, userAns: optionKey }
-    ];
+    // 更新當前提的答案，而不是只往後推
+    const newAnswers = [...answers];
+    newAnswers[currentIndex] = { originalIndex: currentQ.originalIndex, userAns: optionKey };
     
     if (currentIndex + 1 < questions.length) {
       setAnswers(newAnswers);
@@ -61,6 +60,9 @@ export default function QuizScreen({ questions, onComplete }) {
 
   const progressPercent = (timeLeft / 15) * 100;
   const progressColor = timeLeft <= 3 ? 'var(--color-danger)' : 'var(--color-primary)';
+  
+  // 取得目前這題玩家是否曾經選過答案
+  const selectedAns = answers[currentIndex]?.userAns;
 
   return (
     <div>
@@ -97,6 +99,7 @@ export default function QuizScreen({ questions, onComplete }) {
                   key={key} 
                   className="cyber-btn option-btn"
                   onClick={() => handleSelect(key)}
+                  style={selectedAns === key ? { backgroundColor: 'var(--color-primary)', color: '#fff', borderColor: 'var(--color-primary)' } : {}}
                 >
                   <b style={{ fontFamily: 'var(--font-cyber)', marginRight: '10px' }}>{key}.</b> 
                   {currentQ.options[key]}
@@ -111,7 +114,7 @@ export default function QuizScreen({ questions, onComplete }) {
                 className="cyber-btn" 
                 onClick={() => {
                   playClick();
-                  setAnswers(answers.slice(0, -1));
+                  // 回上一題時不再清除答案，只改變 index
                   setCurrentIndex(currentIndex - 1);
                 }}
                 style={{ fontSize: '0.9rem', padding: '10px 20px', borderColor: '#aaa', color: '#aaa' }}
