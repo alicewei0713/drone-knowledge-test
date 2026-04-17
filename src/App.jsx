@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import LoginScreen from './components/LoginScreen';
 import QuizScreen from './components/QuizScreen';
 import ResultScreen from './components/ResultScreen';
@@ -27,6 +27,13 @@ export default function App() {
   
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(null);
+
+  // 初始化時將背景音樂音量調低
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.15; // 降低至 15% 音量
+    }
+  }, []);
 
   const toggleMute = () => {
     initAudio();

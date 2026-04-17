@@ -18,7 +18,7 @@ export function playClick() {
   osc.type = 'sine';
   osc.frequency.setValueAtTime(600, audioCtx.currentTime);
   osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
-  gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.1, audioCtx.currentTime); // 降低音量
   gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
   osc.connect(gain);
   gain.connect(audioCtx.destination);
@@ -33,7 +33,7 @@ export function playTick() {
   const gain = audioCtx.createGain();
   osc.type = 'triangle';
   osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-  gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.05, audioCtx.currentTime); // 降低音量
   gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
   osc.connect(gain);
   gain.connect(audioCtx.destination);
@@ -49,7 +49,7 @@ export function playTimeout() {
   osc.type = 'sawtooth';
   osc.frequency.setValueAtTime(300, audioCtx.currentTime);
   osc.frequency.linearRampToValueAtTime(150, audioCtx.currentTime + 0.5);
-  gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.1, audioCtx.currentTime); // 降低音量
   gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
   osc.connect(gain);
   gain.connect(audioCtx.destination);
@@ -69,7 +69,7 @@ export function playSuccess() {
   osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.2); // E5
   osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.4); // A5
 
-  gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.05, audioCtx.currentTime); // 降低音量
   gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.7);
   
   osc.connect(gain);
@@ -86,7 +86,7 @@ export function playFail() {
   osc.type = 'sawtooth';
   osc.frequency.setValueAtTime(200, audioCtx.currentTime);
   osc.frequency.linearRampToValueAtTime(50, audioCtx.currentTime + 0.6);
-  gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.1, audioCtx.currentTime); // 降低音量
   gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.6);
   osc.connect(gain);
   gain.connect(audioCtx.destination);
